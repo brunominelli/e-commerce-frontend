@@ -1,23 +1,15 @@
 import React from 'react';
-import logo from './logo.svg';
+import * as api from './services/api';
 import './App.css';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={ logo } className="App-logo" alt="logo" />
-        <p>Edit src/App.js and save to reload.</p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <p>Trybelibre</p>
+      { api.getCategories().then((categories) => console.log(categories)) }
+      { api.getProductsFromCategoryAndQuery('MLB271599', 'Agro')
+        .then((categories) => console.log(categories)) }
+    </>
   );
 }
 
