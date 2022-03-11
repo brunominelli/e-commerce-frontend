@@ -25,7 +25,16 @@ class Categories extends Component {
     return (
       <nav className="container-data">
         {
-          categories.map((category) => <p key={ category.id }>{ category.name }</p>)
+          categories.map((category) => (
+            <label
+              key={ category.id }
+              htmlFor={ category.id }
+              data-testid="category"
+            >
+              <input type="radio" id={ category.id } />
+              { category.name }
+            </label>
+          ))
         }
       </nav>
     );
