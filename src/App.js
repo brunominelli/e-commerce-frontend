@@ -3,6 +3,7 @@ import { BrowserRouter, Route } from 'react-router-dom';
 import './App.css';
 import Categories from './components/Categories';
 import Main from './components/Main';
+import NotFound from './components/NotFound';
 import ShoppingCart from './components/ShoppingCart';
 
 function App() {
@@ -10,6 +11,7 @@ function App() {
     <BrowserRouter>
       <Route exact path="/shopping-cart" component={ ShoppingCart } />
       <Route exact path="/categories" component={ Categories } />
+      <Route exact path="/not-found" component={ NotFound } />
       <Route exact path="/" component={ Main } />
     </BrowserRouter>
   );
