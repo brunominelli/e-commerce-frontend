@@ -1,32 +1,31 @@
 import React, { Component } from 'react';
-import * as api from '../services/api';
+import PropTypes from 'prop-types';
 
 class Search extends Component {
-  constructor() {
-    super();
-    this.state = {
-      results: [],
-    };
-  }
-
-  requestAPI = async () => {
-    const searchQuery = await api.getProductsFromQuery('livro');
-    const { results } = searchQuery;
-    this.setState({
-      results,
-    });
-  }
-
   render() {
-    this.requestAPI();
-    const { results } = this.state;
+    const { results } = this.props;
     return (
       <>
-        <p>Pesquisa</p>
-        {results.map((product) => <p key={ product.id }>{ product.title }</p>)}
+        {
+          results.map((product) => (
+            <section
+              key={ product.id }
+              data-testid="product"
+              className="container-products"
+            >
+              <img src={ product.thumbnail } alt={ product.title } />
+              <p>{ product.title }</p>
+              <p>{`R$${product.price}`}</p>
+            </section>
+          ))
+        }
       </>
     );
   }
 }
+
+Search.propTypes = {
+  results: PropTypes.arrayOf(PropTypes.object).isRequired,
+};
 
 export default Search;
