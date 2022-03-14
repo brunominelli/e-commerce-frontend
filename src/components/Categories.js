@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import * as api from '../services/api';
 
 class Categories extends Component {
@@ -22,6 +23,7 @@ class Categories extends Component {
 
   render() {
     const { categories } = this.state;
+    const { loadAPICategoryAndQuery } = this.props;
     return (
       <nav className="container-categories">
         {
@@ -31,7 +33,13 @@ class Categories extends Component {
               htmlFor={ category.id }
               data-testid="category"
             >
-              <input type="radio" id={ category.id } />
+              <input
+                type="radio"
+                id={ category.id }
+                name="category"
+                value={ category.id }
+                onClick={ loadAPICategoryAndQuery }
+              />
               { category.name }
             </label>
           ))
@@ -40,5 +48,9 @@ class Categories extends Component {
     );
   }
 }
+
+Categories.propTypes = {
+  loadAPICategoryAndQuery: PropTypes.func.isRequired,
+};
 
 export default Categories;
