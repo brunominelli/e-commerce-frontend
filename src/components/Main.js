@@ -20,10 +20,20 @@ class Main extends Component {
     });
   }
 
-  loadAPI = async ({ target: { value } }) => {
+  loadAPIQuery = async ({ target: { value } }) => {
     const response = await api.getProductsFromQuery(value);
     const { results } = response;
     this.setState({
+      results,
+    });
+  }
+
+  loadAPICategoryAndQuery = async ({ target: { value } }) => {
+    const response = await api.getProductsFromCategoryAndQuery(value, '');
+    const { results } = response;
+    console.log(results);
+    this.setState({
+      query: value,
       results,
     });
   }
@@ -32,7 +42,7 @@ class Main extends Component {
     const { query, results } = this.state;
     return (
       <main className="container-data">
-        <Categories />
+        <Categories loadAPICategoryAndQuery={ this.loadAPICategoryAndQuery } />
         <section>
           <input
             type="text"
@@ -45,7 +55,7 @@ class Main extends Component {
             type="button"
             data-testid="query-button"
             value={ query }
-            onClick={ this.loadAPI }
+            onClick={ this.loadAPIQuery }
           >
             Buscar
           </button>
