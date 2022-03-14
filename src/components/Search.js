@@ -1,25 +1,31 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 
 class Search extends Component {
   render() {
     const { results } = this.props;
     return (
-      <>
+      <section>
         {
           results.map((product) => (
-            <section
+            <div
               key={ product.id }
               data-testid="product"
               className="container-products"
             >
-              <img src={ product.thumbnail } alt={ product.title } />
-              <p>{ product.title }</p>
-              <p>{`R$${product.price}`}</p>
-            </section>
+              <Link
+                data-testid="product-detail-link"
+                to={ `/product-details/${product.id}` }
+              >
+                <img src={ product.thumbnail } alt={ product.title } />
+                <p>{ product.title }</p>
+                <p>{`R$${product.price}`}</p>
+              </Link>
+            </div>
           ))
         }
-      </>
+      </section>
     );
   }
 }
