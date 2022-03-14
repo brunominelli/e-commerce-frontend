@@ -23,7 +23,7 @@ class Categories extends Component {
   render() {
     const { categories } = this.state;
     return (
-      <nav className="container-data">
+      <nav className="container-categories">
         {
           categories.map((category) => (
             <label
