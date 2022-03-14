@@ -39,7 +39,9 @@ class ProductDetails extends Component {
           <ul>
             {
               attributes.map((attribute) => (
-                <li key={ attribute.id }>{ `${attribute.name}: ${attribute.value_name}` }</li>
+                <li key={ attribute.id }>
+                  { `${attribute.name}: ${attribute.value_name}` }
+                </li>
               ))
             }
           </ul>
