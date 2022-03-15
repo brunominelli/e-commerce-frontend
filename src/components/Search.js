@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+import ButtonAddCart from './ButtonAddCart';
 
 class Search extends Component {
   render() {
@@ -22,6 +23,7 @@ class Search extends Component {
                 <p>{ product.title }</p>
                 <p>{`R$${product.price}`}</p>
               </Link>
+              <ButtonAddCart product={ product } />
             </div>
           ))
         }
