@@ -4,6 +4,10 @@ import { Link } from 'react-router-dom';
 import ButtonAddCart from './ButtonAddCart';
 
 class Search extends Component {
+  addProduct = (product) => {
+    localStorage.setItem('cart', JSON.stringify(product));
+  }
+
   render() {
     const { results } = this.props;
     return (
@@ -23,7 +27,7 @@ class Search extends Component {
                 <p>{ product.title }</p>
                 <p>{`R$${product.price}`}</p>
               </Link>
-              <ButtonAddCart product={ product } />
+              <ButtonAddCart addProduct={ this.addProduct } product={ product } />
             </div>
           ))
         }

@@ -1,31 +1,26 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
 
 class ShoppingCart extends Component {
   constructor() {
     super();
     this.state = {
-      shoppingCart: [],
+      cart: [],
     };
   }
 
   componentDidMount() {
-    this.addProductCart();
+    this.getProducts();
   }
 
-  addProductCart = () => {
-    const { product } = this.props;
-    console.log(product);
-    const { shoppingCart } = this.state;
-    shoppingCart.push(product);
+  getProducts = () => {
     this.setState({
-      shoppingCart,
+      cart: JSON.parse(localStorage.getItem('cart')),
     });
-    return shoppingCart.map((item) => console.log(item));
   }
 
   render() {
-    // const { shoppingCart } = this.state;
+    const { cart } = this.state;
+    console.log(cart);
     return (
       <main className="container-data">
         <p data-testid="shopping-cart-empty-message">Seu carrinho está vazio</p>
@@ -33,9 +28,5 @@ class ShoppingCart extends Component {
     );
   }
 }
-
-ShoppingCart.propTypes = {
-  product: PropTypes.objectOf(PropTypes.any).isRequired,
-};
 
 export default ShoppingCart;

@@ -1,23 +1,14 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import ShoppingCart from './ShoppingCart';
 
 class ButtonAddCart extends Component {
-  setProps = (product) => <ShoppingCart product={ product } />
-
-  addProduct = () => {
-    const { product } = this.props;
-    this.setProps(product);
-  }
-
   render() {
-    const { product } = this.props;
-    console.log(product);
+    const { addProduct, product } = this.props;
     return (
       <button
         type="button"
         data-testid="product-add-to-cart"
-        onClick={ this.addProduct }
+        onClick={ () => addProduct(product) }
       >
         Add Cart
       </button>
@@ -26,6 +17,7 @@ class ButtonAddCart extends Component {
 }
 
 ButtonAddCart.propTypes = {
+  addProduct: PropTypes.func.isRequired,
   product: PropTypes.objectOf(PropTypes.any).isRequired,
 };
 

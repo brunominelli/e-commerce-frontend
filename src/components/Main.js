@@ -31,7 +31,6 @@ class Main extends Component {
   loadAPICategoryAndQuery = async ({ target: { value } }) => {
     const response = await api.getProductsFromCategoryAndQuery(value, '');
     const { results } = response;
-    console.log(results);
     this.setState({
       query: value,
       results,
