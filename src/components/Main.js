@@ -40,25 +40,32 @@ class Main extends Component {
   render() {
     const { query, results } = this.state;
     return (
-      <main className="container-data">
+      <main className="container-data main flex-container">
         <Categories loadAPICategoryAndQuery={ this.loadAPICategoryAndQuery } />
         <section>
-          <input
-            type="text"
-            name="query"
-            data-testid="query-input"
-            value={ query }
-            onChange={ this.handleInput }
-          />
-          <button
-            type="button"
-            data-testid="query-button"
-            value={ query }
-            onClick={ this.loadAPIQuery }
-          >
-            Buscar
-          </button>
-          <Link to="/shopping-cart" data-testid="shopping-cart-button">Meu carrinho</Link>
+          <div className="container-search-header flex-container row">
+            <input
+              type="text"
+              name="query"
+              data-testid="query-input"
+              value={ query }
+              onChange={ this.handleInput }
+            />
+            <button
+              type="button"
+              data-testid="query-button"
+              value={ query }
+              onClick={ this.loadAPIQuery }
+            >
+              <div className="icon-find" />
+            </button>
+            <Link
+              to="/shopping-cart"
+              data-testid="shopping-cart-button"
+            >
+              <div className="icon-cart" />
+            </Link>
+          </div>
           {
             !query
               ? (

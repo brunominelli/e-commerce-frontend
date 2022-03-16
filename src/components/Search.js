@@ -4,20 +4,31 @@ import { Link } from 'react-router-dom';
 import ButtonAddCart from './ButtonAddCart';
 
 class Search extends Component {
+  componentDidMount() {
+    this.getProducts();
+  }
+
+  getProducts = () => {
+    const cartBefore = localStorage.getItem('cart');
+    return cartBefore === null ? [] : JSON.parse(cartBefore);
+  }
+
   addProduct = (product) => {
-    localStorage.setItem('cart', JSON.stringify(product));
+    const newProduct = JSON.stringify(product);
+    localStorage.setItem('cart', newProduct);
+    // localStorage.setItem('cart', JSON.stringify(product));
   }
 
   render() {
     const { results } = this.props;
     return (
-      <section>
+      <section className="container-search flex-container">
         {
           results.map((product) => (
             <div
               key={ product.id }
               data-testid="product"
-              className="container-products"
+              className="container-products flex-container col"
             >
               <Link
                 data-testid="product-detail-link"
