@@ -4,15 +4,6 @@ import { Link } from 'react-router-dom';
 import ButtonAddCart from './ButtonAddCart';
 
 class Search extends Component {
-  componentDidMount() {
-    this.getProducts();
-  }
-
-  getProducts = () => {
-    const cartBefore = localStorage.getItem('cart');
-    return cartBefore === null ? [] : JSON.parse(cartBefore);
-  }
-
   addProduct = (product) => {
     const storage = JSON.parse(localStorage.getItem('cart'));
     localStorage.setItem('cart', JSON.stringify([...storage, product]));
@@ -37,7 +28,11 @@ class Search extends Component {
                 <p>{ product.title }</p>
                 <p>{`R$${product.price}`}</p>
               </Link>
-              <ButtonAddCart addProduct={ this.addProduct } product={ product } />
+              <ButtonAddCart
+                addProduct={ this.addProduct }
+                product={ product }
+                dataTestId="product-add-to-cart"
+              />
             </div>
           ))
         }
