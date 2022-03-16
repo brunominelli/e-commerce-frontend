@@ -13,6 +13,12 @@ class Main extends Component {
     };
   }
 
+  componentDidMount() {
+    if (!JSON.parse(localStorage.getItem('cart'))) {
+      localStorage.setItem('cart', JSON.stringify([]));
+    }
+  }
+
   handleInput = ({ target }) => {
     const { name, value } = target;
     this.setState({

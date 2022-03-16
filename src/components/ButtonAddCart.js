@@ -10,7 +10,7 @@ class ButtonAddCart extends Component {
         data-testid="product-add-to-cart"
         onClick={ () => addProduct(product) }
       >
-        Add Cart
+        Adicionar ao Carrinho
       </button>
     );
   }

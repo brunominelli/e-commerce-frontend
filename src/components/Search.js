@@ -14,9 +14,8 @@ class Search extends Component {
   }
 
   addProduct = (product) => {
-    const newProduct = JSON.stringify(product);
-    localStorage.setItem('cart', newProduct);
-    // localStorage.setItem('cart', JSON.stringify(product));
+    const storage = JSON.parse(localStorage.getItem('cart'));
+    localStorage.setItem('cart', JSON.stringify([...storage, product]));
   }
 
   render() {
