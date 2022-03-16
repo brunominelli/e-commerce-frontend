@@ -25,7 +25,7 @@ class Categories extends Component {
     const { categories } = this.state;
     const { loadAPICategoryAndQuery } = this.props;
     return (
-      <nav className="container-categories">
+      <nav className="container-categories flex-container col">
         {
           categories.map((category) => (
             <label

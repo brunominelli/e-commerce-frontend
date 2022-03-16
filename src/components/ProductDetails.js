@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import * as api from '../services/api';
+import ButtonAddCart from './ButtonAddCart';
 
 class ProductDetails extends Component {
   constructor() {
@@ -22,6 +23,11 @@ class ProductDetails extends Component {
     });
   }
 
+  addProduct = (product) => {
+    const storage = JSON.parse(localStorage.getItem('cart'));
+    localStorage.setItem('cart', JSON.stringify([...storage, product]));
+  }
+
   render() {
     const { product, attributes } = this.state;
     return (
@@ -34,6 +40,11 @@ class ProductDetails extends Component {
         </h2>
         <figure>
           <img src={ product.thumbnail } alt={ `Imagem do ${product.title} ` } />
+          <ButtonAddCart
+            addProduct={ this.addProduct }
+            product={ product }
+            dataTestId="product-detail-add-to-cart"
+          />
         </figure>
         <div className="container-product-technical-detail">
           <ul>
