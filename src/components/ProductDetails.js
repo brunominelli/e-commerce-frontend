@@ -25,6 +25,7 @@ class ProductDetails extends Component {
 
   addProduct = (product) => {
     const storage = JSON.parse(localStorage.getItem('cart'));
+    product.quantidade = 1;
     localStorage.setItem('cart', JSON.stringify([...storage, product]));
   }
 
