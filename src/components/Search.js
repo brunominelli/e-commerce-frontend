@@ -5,8 +5,9 @@ import ButtonAddCart from './ButtonAddCart';
 
 class Search extends Component {
   addProduct = (product) => {
+    product.quantidade = 1;
     const storage = JSON.parse(localStorage.getItem('cart'));
-    localStorage.setItem('cart', JSON.stringify([...storage, product])); 
+    localStorage.setItem('cart', JSON.stringify([...storage, product]));
   }
 
   render() {
