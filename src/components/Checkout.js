@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import brazilianStates from '../data/brazilianStates';
 
 class Checkout extends Component {
   constructor() {
@@ -181,11 +182,10 @@ class Checkout extends Component {
               <span className="form-label-text">
                 Estado
               </span>
-              <input
-                type="text"
-                id="checkout-address-state"
-                className="form-input"
-              />
+              <select id="checkout-address-state" className="form-input">
+                {brazilianStates
+                  .map((state) => <option key={ state } value={ state }>{state}</option>)}
+              </select>
             </label>
           </div>
         </fieldset>
