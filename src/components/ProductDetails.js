@@ -10,6 +10,10 @@ class ProductDetails extends Component {
     this.state = {
       product: {},
       attributes: [],
+      evaluations: [],
+      email: '',
+      stars: 0,
+      evaluation: '',
     };
   }
 
@@ -21,6 +25,16 @@ class ProductDetails extends Component {
       product,
       attributes,
     });
+    this.getEvaluation();
+  }
+
+  handleChange = ({ target }) => {
+    const { name } = target;
+    const value = (target.type === 'checkbox' || target.type === 'radio')
+      ? target.checked : target.value;
+    this.setState({
+      [name]: value,
+    });
   }
 
   addProduct = (product) => {
@@ -29,20 +43,54 @@ class ProductDetails extends Component {
     localStorage.setItem('cart', JSON.stringify([...storage, product]));
   }
 
+  setStars = ({ target: { value } }) => {
+    this.setState({
+      stars: parseInt(value, 10),
+    });
+  }
+
+  setEvaluation = () => {
+    const { email, stars, evaluation } = this.state;
+    const { match: { params: { id } } } = this.props;
+    const evaluations = JSON.parse(localStorage.getItem('evaluations'));
+    localStorage
+      .setItem('evaluations',
+        JSON.stringify([...evaluations, { id, email, stars, evaluation }]));
+    this.getEvaluation();
+  }
+
+  getEvaluation = () => {
+    this.setState({
+      evaluations: JSON.parse(localStorage.getItem('evaluations')),
+    });
+  }
+
   // Referência:  https://devpleno.com/loopsrepeticoesiteracoes-no-jsx-do-react
-  rowStars(index) {
+  rowStars() {
     // return <div className="rate" data-testeid={ `${index}-rating` }>teste</>;
-    return <div className="icon-star" data-testid={ `${index}-rating` } />;
+    const buttons = [];
+    const max = 5;
+    for (let index = 0; index < max; index += 1) {
+      const button = (
+        <button
+          type="button"
+          data-testid={ `${index}-rating` }
+          value={ index + 1 }
+          onClick={ this.setStars }
+        >
+          {index + 1}
+        </button>
+      );
+      buttons.push(button);
+    }
+    return buttons;
   }
 
   render() {
-    const { product, attributes } = this.state;
-    const limit = 5;
-    const stars = [];
-    // Referência:  https://devpleno.com/loopsrepeticoesiteracoes-no-jsx-do-react
-    for (let i = 1; i <= limit; i += 1) {
-      stars.push(i);
-    }
+    const { product, attributes, email, evaluation, evaluations } = this.state;
+    const stars = this.rowStars();
+    const { match: { params: { id } } } = this.props;
+
     return (
       <div>
         <header className="container-header">
@@ -78,20 +126,50 @@ class ProductDetails extends Component {
           </div>
           {/* Referência:  https://devpleno.com/loopsrepeticoesiteracoes-no-jsx-do-react */}
           <div className="container-evaluation flex-container col">
-            <h2>Avaliações</h2>
+            <h2>Avalie o Produto</h2>
             <input
               type="email"
               placeholder="Digite seu email"
               data-testid="product-detail-email"
+              name="email"
+              value={ email }
+              onChange={ this.handleChange }
             />
             <div className="container-stars flex-container row">
-              {stars.map(this.rowStars)}
+              {stars}
             </div>
             <textarea
               placeholder="Deixe aqui seu comentário"
               data-testid="product-detail-evaluation"
+              name="evaluation"
+              value={ evaluation }
+              onChange={ this.handleChange }
             />
-            <button type="button" data-testeid="submit-review-btn">Avaliar</button>
+            <button
+              type="submit"
+              data-testeid="submit-review-btn"
+              onClick={ this.setEvaluation }
+            >
+              Avaliar
+            </button>
+          </div>
+          <div>
+            Avaliações
+            {
+              evaluations.map((evaluate, index) => {
+                let result;
+                if (evaluate.id === id) {
+                  result = (
+                    <div key={ index }>
+                      <p><strong>{evaluate.email}</strong></p>
+                      <p>{evaluate.stars}</p>
+                      <p>{evaluate.evaluation}</p>
+                    </div>
+                  );
+                }
+                return result;
+              })
+            }
           </div>
         </div>
       </div>

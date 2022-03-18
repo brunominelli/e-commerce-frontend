@@ -17,6 +17,10 @@ class Main extends Component {
     if (!JSON.parse(localStorage.getItem('cart'))) {
       localStorage.setItem('cart', JSON.stringify([]));
     }
+
+    if (!JSON.parse(localStorage.getItem('evaluations'))) {
+      localStorage.setItem('evaluations', JSON.stringify([]));
+    }
   }
 
   handleInput = ({ target }) => {
