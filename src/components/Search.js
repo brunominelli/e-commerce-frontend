@@ -27,7 +27,17 @@ class Search extends Component {
               >
                 <img src={ product.thumbnail } alt={ product.title } />
                 <p>{ product.title }</p>
-                <p>{`R$${product.price}`}</p>
+                <p>
+                  {`R$${
+                    product.price
+                      .toLocaleString(
+                        'pt-BR', {
+                          style: 'currency',
+                          currency: 'BRL',
+                        },
+                      )
+                  }`}
+                </p>
               </Link>
               <ButtonAddCart
                 addProduct={ this.addProduct }
