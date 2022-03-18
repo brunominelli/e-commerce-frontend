@@ -24,39 +24,75 @@ class ProductDetails extends Component {
   }
 
   addProduct = (product) => {
-    const storage = JSON.parse(localStorage.getItem('cart'));
     product.quantidade = 1;
+    const storage = JSON.parse(localStorage.getItem('cart'));
     localStorage.setItem('cart', JSON.stringify([...storage, product]));
+  }
+
+  // Referência:  https://devpleno.com/loopsrepeticoesiteracoes-no-jsx-do-react
+  rowStars(index) {
+    // return <div className="rate" data-testeid={ `${index}-rating` }>teste</>;
+    return <div className="icon-star" data-testid={ `${index}-rating` } />;
   }
 
   render() {
     const { product, attributes } = this.state;
+    const limit = 5;
+    const stars = [];
+    // Referência:  https://devpleno.com/loopsrepeticoesiteracoes-no-jsx-do-react
+    for (let i = 1; i <= limit; i += 1) {
+      stars.push(i);
+    }
     return (
-      <div className="container-product-detail">
-        <Link to="/shopping-cart" data-testid="shopping-cart-button">Meu carrinho</Link>
-        <h2
-          data-testid="product-detail-name"
-        >
-          {`${product.title} - R$${product.price}`}
-        </h2>
-        <figure>
-          <img src={ product.thumbnail } alt={ `Imagem do ${product.title} ` } />
-          <ButtonAddCart
-            addProduct={ this.addProduct }
-            product={ product }
-            dataTestId="product-detail-add-to-cart"
-          />
-        </figure>
-        <div className="container-product-technical-detail">
-          <ul>
-            {
-              attributes.map((attribute) => (
-                <li key={ attribute.id }>
-                  { `${attribute.name}: ${attribute.value_name}` }
-                </li>
-              ))
-            }
-          </ul>
+      <div>
+        <header className="container-header">
+          <Link to="/shopping-cart" data-testid="shopping-cart-button">
+            <div className="icon-cart" />
+          </Link>
+        </header>
+        <div className="container-product-detail flex-container row">
+          <h2
+            data-testid="product-detail-name"
+          >
+            {`${product.title} - R$${product.price}`}
+          </h2>
+          <figure className="figure-container flex-container col">
+            <img src={ product.thumbnail } alt={ `Imagem do ${product.title} ` } />
+            <ButtonAddCart
+              addProduct={ this.addProduct }
+              product={ product }
+              dataTestId="product-detail-add-to-cart"
+            />
+          </figure>
+          <div className="container-product-technical-detail">
+            <h3>Especificações Técnicas</h3>
+            <ul>
+              {
+                attributes.map((attribute) => (
+                  <li key={ attribute.id }>
+                    { `${attribute.name}: ${attribute.value_name}` }
+                  </li>
+                ))
+              }
+            </ul>
+          </div>
+          {/* Referência:  https://devpleno.com/loopsrepeticoesiteracoes-no-jsx-do-react */}
+          <div className="container-evaluation flex-container col">
+            <h2>Avaliações</h2>
+            <input
+              type="email"
+              placeholder="Digite seu email"
+              data-testid="product-detail-email"
+            />
+            <div className="container-stars flex-container row">
+              {stars.map(this.rowStars)}
+            </div>
+            <textarea
+              placeholder="Deixe aqui seu comentário"
+              data-testid="product-detail-evaluation"
+            />
+            <button type="button" data-testeid="submit-review-btn">Avaliar</button>
+          </div>
         </div>
       </div>
     );
