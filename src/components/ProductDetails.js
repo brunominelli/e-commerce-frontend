@@ -28,6 +28,27 @@ class ProductDetails extends Component {
     this.getEvaluation();
   }
 
+  setEvaluation = () => {
+    const { email, stars, evaluation } = this.state;
+    const { match: { params: { id } } } = this.props;
+    const evaluations = JSON.parse(localStorage.getItem('evaluations'));
+    localStorage
+      .setItem('evaluations',
+        JSON.stringify([...evaluations, { id, email, stars, evaluation }]));
+    this.getEvaluation();
+    this.setState({
+      email: '',
+      stars: '',
+      evaluation: '',
+    });
+  }
+
+  getEvaluation = () => {
+    this.setState({
+      evaluations: JSON.parse(localStorage.getItem('evaluations')),
+    });
+  }
+
   handleChange = ({ target }) => {
     const { name } = target;
     const value = (target.type === 'checkbox' || target.type === 'radio')
@@ -49,36 +70,20 @@ class ProductDetails extends Component {
     });
   }
 
-  setEvaluation = () => {
-    const { email, stars, evaluation } = this.state;
-    const { match: { params: { id } } } = this.props;
-    const evaluations = JSON.parse(localStorage.getItem('evaluations'));
-    localStorage
-      .setItem('evaluations',
-        JSON.stringify([...evaluations, { id, email, stars, evaluation }]));
-    this.getEvaluation();
-  }
-
-  getEvaluation = () => {
-    this.setState({
-      evaluations: JSON.parse(localStorage.getItem('evaluations')),
-    });
-  }
-
   // Referência:  https://devpleno.com/loopsrepeticoesiteracoes-no-jsx-do-react
-  rowStars() {
+  rowStars = () => {
     // return <div className="rate" data-testeid={ `${index}-rating` }>teste</>;
     const buttons = [];
     const max = 5;
-    for (let index = 0; index < max; index += 1) {
+    for (let index = 1; index <= max; index += 1) {
       const button = (
         <button
           type="button"
           data-testid={ `${index}-rating` }
-          value={ index + 1 }
+          value={ index }
           onClick={ this.setStars }
         >
-          {index + 1}
+          {index}
         </button>
       );
       buttons.push(button);
@@ -87,9 +92,9 @@ class ProductDetails extends Component {
   }
 
   render() {
-    const { product, attributes, email, evaluation, evaluations } = this.state;
-    const stars = this.rowStars();
+    const { product, email, evaluation, evaluations, attributes } = this.state;
     const { match: { params: { id } } } = this.props;
+    const stars = this.rowStars();
 
     return (
       <div>
@@ -109,7 +114,7 @@ class ProductDetails extends Component {
             <ButtonAddCart
               addProduct={ this.addProduct }
               product={ product }
-              dataTestId="product-detail-add-to-cart"
+              data-testid="product-detail-add-to-cart"
             />
           </figure>
           <div className="container-product-technical-detail">
@@ -119,8 +124,7 @@ class ProductDetails extends Component {
                 attributes.map((attribute) => (
                   <li key={ attribute.id }>
                     { `${attribute.name}: ${attribute.value_name}` }
-                  </li>
-                ))
+                  </li>))
               }
             </ul>
           </div>
@@ -134,6 +138,7 @@ class ProductDetails extends Component {
               name="email"
               value={ email }
               onChange={ this.handleChange }
+              required
             />
             <div className="container-stars flex-container row">
               {stars}
@@ -147,7 +152,7 @@ class ProductDetails extends Component {
             />
             <button
               type="submit"
-              data-testeid="submit-review-btn"
+              data-testid="submit-review-btn"
               onClick={ this.setEvaluation }
             >
               Avaliar
@@ -161,7 +166,7 @@ class ProductDetails extends Component {
                 if (evaluate.id === id) {
                   result = (
                     <div key={ index }>
-                      <p><strong>{evaluate.email}</strong></p>
+                      <p>{evaluate.email}</p>
                       <p>{evaluate.stars}</p>
                       <p>{evaluate.evaluation}</p>
                     </div>
