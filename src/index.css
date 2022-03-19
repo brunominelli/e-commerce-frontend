@@ -1,3 +1,10 @@
+*,
+*::after,
+*::before {
+  margin: 0;
+  padding: 0.25rem;
+}
+
 .flex-container {
   display: flex;
 }
@@ -14,6 +21,39 @@
   flex-direction: column;
   align-items: center;
   justify-content: space-around;
+}
+
+.block {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  width: 100%;
+  margin: auto;
+  padding: 0.5rem;
+}
+
+.block.row,
+.block.col {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 90%;
+}
+
+.btn {
+  border: 1px solid black;
+  background-color: white;
+  font-weight: bold;
+  text-decoration: none;
+  color: black;
+  margin: 1rem;
+  padding: 1rem;
+  transition: 1s;
+}
+
+.btn:hover {
+  background-color: black;
+  color: white;
 }
 
 /* Classes de ìcones */
@@ -101,9 +141,16 @@
   margin: 20px;
 }
 
+.container-products > a {
+  text-decoration: none;
+  font-size: 14px;
+  color: black;
+}
+
 .container-products img {
   width: 90px;
 }
+
 
 .container-header {
   display: flex;
@@ -179,4 +226,14 @@
 }
 
 
+/* Formulários */
+.form-input {
+  width: 75%;
+  padding: 8px;
+}
 
+
+.form-label-text {
+  width: 25%;
+  padding: 8px;
+}
