@@ -68,6 +68,18 @@
   cursor: pointer;
 }
 
+.icon-star {
+  background-image: url("./assets/star-regular.svg");
+  width: 27px;
+  height: 24px;
+  margin: 0 5px;
+}
+
+.icon-star:hover {
+  background-image: url("./assets/star-solid.svg");
+
+}
+
 .icon-cart{
   background-image: url("./assets/cart-shopping-solid.svg");
   width: 31px;
@@ -126,7 +138,7 @@
 .container-products {
   width: 30%;
   text-align: center;
-  margin: 10px;
+  margin: 20px;
 }
 
 .container-products > a {
@@ -139,11 +151,87 @@
   width: 90px;
 }
 
+
+.container-header {
+  display: flex;
+  margin: 50px 60px -20px 60px;
+  justify-content: flex-end;
+}
+
+.container-product-detail {
+  border: solid 3px gray;
+  flex-wrap: wrap;
+  border-radius: 10px;
+  margin: 50px;
+  padding: 50px;
+}
+
+.container-product-detail h2 {
+  width: 100%;
+  text-align: center;
+  margin-bottom: 50px;
+}
+
+.container-product-technical-detail {
+  width: 60%;
+}
+
+.figure-container {
+  width: 30%;
+}
+
+.figure-container button{
+  margin: 50px 0;
+}
+
+.figure-container img{
+  width: 150px;
+}
+
+.container-product-technical-detail {
+  line-height: 25px;
+}
+
+.container-evaluation {
+  margin: 50px 0;
+  width: 100%;
+}
+
+.container-evaluation h2 {
+  margin-bottom: 5px ;
+  width: 100%;
+}
+
+.container-evaluation input {
+  width: 60%;
+  padding: 8px;
+  margin: 10px;
+}
+
+.container-evaluation button {
+  padding: 8px;
+  margin: 10px;
+  width: 100px;
+}
+
+.container-evaluation textarea {
+  padding: 8px;
+  width: 60%;
+  height: 100px;
+  margin: 10px;
+}
+
+.container-stars {
+  margin: 20px 0;
+}
+
+
 /* Formulários */
 .form-input {
   width: 75%;
   padding: 8px;
 }
+
 
 .form-label-text {
   width: 25%;
