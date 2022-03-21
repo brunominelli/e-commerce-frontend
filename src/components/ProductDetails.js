@@ -114,7 +114,7 @@ class ProductDetails extends Component {
             <ButtonAddCart
               addProduct={ this.addProduct }
               product={ product }
-              data-testid="product-detail-add-to-cart"
+              dataTestId="product-detail-add-to-cart"
             />
           </figure>
           <div className="container-product-technical-detail">
